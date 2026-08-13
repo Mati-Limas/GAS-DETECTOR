@@ -4,7 +4,7 @@
   <img alt="Linguagem principal" src="https://img.shields.io/badge/C%2B%2B-ESP32-blue?style=for-the-badge&logo=cplusplus">
   <img alt="Arduino" src="https://img.shields.io/badge/Arduino-Compatible-00979D?style=for-the-badge&logo=arduino&logoColor=white">
   <img alt="Wokwi" src="https://img.shields.io/badge/Simulado%20no-Wokwi-purple?style=for-the-badge">
-  <img alt="Status" src="https://img.shields.io/badge/status-em%20desenvolvimento-yellow?style=for-the-badge">
+  <img alt="Status" src="https://img.shields.io/badge/status-%20Finalizado-yellow?style=for-the-badge">
 </p>
 
 <p align="center">
