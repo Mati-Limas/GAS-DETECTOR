@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  Sistema ciberfisico para deteccao de gas inflamavel com ESP32, sensor de gas, LEDs de status, buzzer e log serial em JSON.
+  Sistema ciberfisico para detecção de gás inflamável com ESP32, sensor de gás, LEDs de status, buzzer e log serial em JSON.
 </p>
 
 <p align="center">
