@@ -19,35 +19,35 @@
 
 ## Sobre o projeto
 
-O **GAS-DETECTOR** e um prototipo de sistema embarcado para monitoramento de gas inflamavel. O projeto foi desenvolvido em C++ no estilo Arduino e simulado na plataforma Wokwi, usando um ESP32 como unidade de controle.
+O **GAS-DETECTOR** é um protótipo de sistema embarcado para monitoramento de gás inflamável. O projeto foi desenvolvido em C++ e simulado na plataforma Wokwi, usando um ESP32 como unidade de controle.
 
-A aplicacao monitora o nivel de gas, classifica a condicao do ambiente em estados operacionais e aciona sinais visuais e sonoros conforme o risco detectado.
+A aplicação monitora o nível de gás, classifica a condição do ambiente em estados operacionais e aciona sinais visuais e sonoros conforme o risco detectado.
 
 ## Funcionalidades
 
-- Leitura periodica do nivel de gas.
-- Classificacao por estados: `DESLIGADO`, `SEGURO`, `ALERTA`, `PERIGO`, `FALHA_SENSOR` e `FALHA_PINO`.
+- Leitura periódica do nível de gás.
+- Classificação por estados: `DESLIGADO`, `SEGURO`, `ALERTA`, `PERIGO`, `FALHA_SENSOR` e `FALHA_PINO`.
 - LEDs indicadores para status seguro, alerta e perigo.
-- Buzzer para sinalizacao sonora em situacoes criticas.
-- Botao fisico para ligar, desligar ou silenciar o alarme.
-- Media movel para suavizar leituras instaveis.
+- Buzzer para sinalização sonora em situações criticas.
+- Botão físico para ligar, desligar ou silenciar o alarme.
+- Média móvel para suavizar leituras instáveis.
 - Histerese nos limiares para evitar troca constante de estado.
 - Registro de eventos em buffer circular.
-- Saida serial em formato JSON para integracao com gateways, dashboards ou Node-RED.
-- Verificacao de falhas por timeout, leituras invalidas e problemas nos pinos de saida.
+- Saída serial em formato JSON para integração com gateways, dashboards ou Node-RED.
+- Verificação de falhas por timeout, leituras invalidas e problemas nos pinos de saída.
 
 ## Componentes
 
-| Componente | Funcao |
+| Componente | Função |
 | --- | --- |
 | ESP32 DevKit C V4 | Microcontrolador principal |
-| Sensor de gas | Entrada analogica para nivel de gas |
+| Sensor de gás | Entrada analógica para nível de gás |
 | LED verde | Ambiente seguro |
-| LED amarelo | Nivel intermediario de alerta |
-| LED vermelho | Nivel perigoso |
+| LED amarelo | Nível intermediário de alerta |
+| LED vermelho | Nível perigoso |
 | Buzzer | Alarme sonoro |
-| Botao | Liga, desliga e silencia o sistema |
-| Resistores | Limitacao de corrente e apoio ao circuito |
+| Botão | Liga, desliga e silencia o sistema |
+| Resistores | Limitação de corrente e apoio ao circuito |
 
 ## Pinagem
 
@@ -57,19 +57,19 @@ A aplicacao monitora o nivel de gas, classifica a condicao do ambiente em estado
 | GPIO 4 | LED amarelo |
 | GPIO 5 | LED verde |
 | GPIO 25 | Buzzer |
-| GPIO 27 | Botao |
-| GPIO 34 | Saida analogica do sensor de gas |
-| 3V3 | Alimentacao do sensor |
+| GPIO 27 | Botão |
+| GPIO 34 | Saída analógica do sensor de gás |
+| 3V3 | Alimentação do sensor |
 | GND | Referencia comum do circuito |
 
 ## Maquina de estados
 
-| Estado | Condicao | Saida |
+| Estado | Condição | Saída |
 | --- | --- | --- |
 | `DESLIGADO` | Sistema aguardando acionamento | LEDs e buzzer desligados |
-| `SEGURO` | Media de gas abaixo do limite de alerta | LED verde ligado |
-| `ALERTA` | Media de gas em faixa intermediaria | LED amarelo ligado |
-| `PERIGO` | Media de gas acima do limite critico | LED vermelho e buzzer ligados |
+| `SEGURO` | Média de gás abaixo do limite de alerta | LED verde ligado |
+| `ALERTA` | Média de gás em faixa intermediaria | LED amarelo ligado |
+| `PERIGO` | Média de gás acima do limite critico | LED vermelho e buzzer ligados |
 | `FALHA_SENSOR` | Sensor sem resposta dentro do tempo esperado | LEDs vermelho/amarelo alternados e buzzer |
 | `FALHA_PINO` | Erros repetidos ou falha de hardware | Todos os LEDs piscando e buzzer |
 
@@ -82,21 +82,21 @@ A aplicacao monitora o nivel de gas, classifica a condicao do ambiente em estado
 #define PERIGO_DESCIDA  2600
 ```
 
-Esses valores usam **histerese**, ou seja, o sistema usa limites diferentes para subir e descer de estado. Isso evita que pequenas variacoes do sensor facam o alarme alternar rapidamente entre seguro, alerta e perigo.
+Esses valores usam **histerese**, ou seja, o sistema usa limites diferentes para subir e descer de estado. Isso evita que pequenas variações do sensor façam o alarme alternar rapidamente entre seguro, alerta e perigo.
 
 ## Funcionamento
 
-1. O sistema inicia desligado e aguarda o pressionamento do botao.
+1. O sistema inicia desligado e aguarda o pressionamento do botão.
 2. Ao ligar, entra no estado `SEGURO`.
 3. A cada 2 segundos, uma leitura do sensor e processada.
-4. A media das ultimas 5 leituras e usada para reduzir ruido.
-5. Conforme o valor medio, o sistema muda para `SEGURO`, `ALERTA` ou `PERIGO`.
+4. A média das últimas 5 leituras e usada para reduzir ruido.
+5. Conforme o valor médio, o sistema muda para `SEGURO`, `ALERTA` ou `PERIGO`.
 6. Em estado de perigo, o buzzer e acionado.
-7. Ao desligar, o historico recente de logs e exibido no Serial Monitor.
+7. Ao desligar, o histórico recente de logs e exibido no Serial Monitor.
 
-## Saida serial
+## Saída serial
 
-O sistema publica os dados em JSON, facilitando integracao com outras ferramentas:
+O sistema publica os dados em JSON, facilitando integração com outras ferramentas:
 
 ```json
 {
@@ -115,8 +115,8 @@ O sistema publica os dados em JSON, facilitando integracao com outras ferramenta
 
    [https://wokwi.com/projects/462937229989048321](https://wokwi.com/projects/462937229989048321)
 
-2. Inicie a simulacao.
-3. Pressione o botao para ligar o sistema.
+2. Inicie a simulação.
+3. Pressione o botão para ligar o sistema.
 4. Acompanhe os LEDs, o buzzer e o Serial Monitor.
 
 ## Estrutura do projeto
@@ -128,15 +128,15 @@ O sistema publica os dados em JSON, facilitando integracao com outras ferramenta
 └── README.md
 ```
 
-| Arquivo | Descricao |
+| Arquivo | Descrição |
 | --- | --- |
-| `sketch.ino` | Codigo principal do sistema embarcado |
-| `diagram.json` | Circuito usado na simulacao do Wokwi |
-| `README.md` | Documentacao do projeto |
+| `sketch.ino` | Código principal do sistema embarcado |
+| `diagram.json` | Circuito usado na simulação do Wokwi |
+| `README.md` | Documentação do projeto |
 
-## Observacao para uso em hardware real
+## Observação para uso em hardware real
 
-Na simulacao, a leitura do sensor e gerada com valores aleatorios:
+Na simulação, a leitura do sensor e gerada com valores aleatórios:
 
 ```cpp
 leituraAtual = random(0, 4096);
@@ -150,22 +150,22 @@ leituraAtual = analogRead(SENSOR);
 
 Depois disso, calibre os limiares de acordo com o sensor utilizado, o ambiente de teste e a faixa de leitura obtida no Serial Monitor.
 
-## Possiveis melhorias
+## Possíveis melhorias
 
 - Adicionar display OLED ou LCD para exibir o estado localmente.
 - Enviar alertas por Wi-Fi usando MQTT, HTTP ou Telegram.
-- Criar dashboard para historico das leituras.
+- Criar dashboard para histórico das leituras.
 - Salvar os logs em banco de dados.
-- Implementar calibracao automatica do sensor.
-- Adicionar documentacao com fotos ou esquema eletrico do circuito fisico.
+- Implementar calibração automática do sensor.
+- Adicionar documentação com fotos ou esquema elétrico do circuito físico.
 
 ## Autor
 
-Desenvolvido por **Mati Limas** como projeto sobre sistemas ciberfisicos.
+Desenvolvido por **Mati Limas** e **Arcanjowz** como projeto sobre sistemas cibe físicos.
 
 ---
 
 <p align="center">
-  Projeto academico de deteccao de gas inflamavel com ESP32, C++ e Wokwi.
+  Projeto acadêmico de detecção de gás inflamável com ESP32, C++ e Wokwi.
 </p>
 
